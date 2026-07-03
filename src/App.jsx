@@ -1,17 +1,41 @@
-import { Routes, Route } from "react-router-dom";
+import "./App.css";
 
-import Home from "./pages/Home";
-import Admin from "./pages/Admin";
-import MyCertificates from "./pages/MyCertificates";
+import { downloadCertificate } from "./services/certificateService";
 
 function App() {
+
+  async function handleDownload() {
+    try {
+      await downloadCertificate(101);
+    } catch (error) {
+      console.error(error);
+      alert("Unable to download certificate. Please try again later.");
+    }
+  }
+
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/admin" element={<Admin />} />
-      <Route path="/certificates" element={<MyCertificates />} />
-    </Routes>
+
+    <div
+      style={{
+        padding: 40,
+        textAlign: "center"
+      }}
+    >
+
+      <h1>SIMMAM Certificate Module</h1>
+
+      <button
+        onClick={handleDownload}
+      >
+
+        Download Certificate
+
+      </button>
+
+    </div>
+
   );
+
 }
 
 export default App;
